@@ -101,4 +101,4 @@
     1.重新生成(token过期同法)
         kubeadm token create --print-join-command
     2.找回
-        sh forget_kubeadm_join.sh
+        sh forget_kubeadm_join_command.sh
