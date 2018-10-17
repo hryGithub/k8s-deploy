@@ -78,7 +78,7 @@
     sh pill_k8s_images_from_aliyun.sh
     #初始化k8s集群
     kubeadm init --apiserver-advertise-address=192.168.9.230 --pod-network-cidr=10.244.0.0/16
-    执行成功以后会生产一个kubeadm -join 的命令
+    执行成功以后会生成一个kubeadm -join 的命令，节点服务器加入集群需要用到
     #
     mkdir -p $HOME/.kube
     cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
