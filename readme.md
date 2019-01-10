@@ -15,7 +15,7 @@
     192.168.9.231 k8s-n1
     EOF
 
-* 2.2 防火墙 selinux k8s的yum源
+* 2.2 防火墙 selinux k8s,docker的yum源
 >
     systemctl stop firewalld
     systemctl disable firewalld
@@ -29,14 +29,13 @@
     sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/sysconfig/selinux 
     sed -i "s/^SELINUX=permissive/SELINUX=disabled/g" /etc/selinux/config  
 
-    modprobe br_netfilter
     cat <<EOF >  /etc/sysctl.d/k8s.conf
     net.bridge.bridge-nf-call-ip6tables = 1
     net.bridge.bridge-nf-call-iptables = 1
     EOF
     sysctl -p /etc/sysctl.d/k8s.conf
-    ls /proc/sys/net/bridge
-
+    
+    
     cat <<EOF > /etc/yum.repos.d/kubernetes.repo
     [kubernetes]
     name=Kubernetes
@@ -47,6 +46,9 @@
     gpgkey=https://mirrors.aliyun.com/kubernetes/yum/doc/yum-key.gpg https://mirrors.aliyun.com/kubernetes/yum/doc/rpm-package-key.gpg
     EOF
 
+
+    yum install -y yum-utils device-mapper-persistent-data lvm2
+    yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
     yum install -y epel-release
 
     systemctl enable ntpdate.service
